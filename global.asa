@@ -1,0 +1,22 @@
+<script language=VBScript Runat=Server>
+Sub Application_OnStart
+Application.lock
+Application("UsuariosAtuais") = 0
+Application("TotalUsuarios") = 0
+Application.unlock
+End sub
+Sub Session_OnStart
+Application.lock
+Application("UsuariosAtuais") = Application("UsuariosAtuais") + 1
+Application("TotalUsuarios") = Application("TotalUsuarios") +1
+If application("TotalUsuarios") = 1000 then
+Response.redirect("user500.asp")
+End If
+Application.Unlock
+End sub
+Sub Session_OnEnd
+Application.lock
+Application("usuariosAtuais") = Application("UsuariosAtuais") - 1
+Application.unlock
+End sub
+</script>
